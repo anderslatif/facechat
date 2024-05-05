@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+.name-ribbon {
+  position: relative;
+  margin: 0 auto;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #b30000
+}
+
+.name-ribbon::before, .name-ribbon::after {
+  content: '';
+  width: 20px;
+  height: 100%;
+  background-color: #ff0000;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%);
+  background-image: linear-gradient(45deg, transparent 50%, #8b0000 50%);
+  background-size: 20px 20px;
+}
+
+.name-ribbon::before {
+  left: -20px;
+}
+
+.name-ribbon::after {
+  right: -20px;
+  transform: scaleX(-1);
+}
+
+@media (max-width: 400px) {
+  .name-ribbon {
+    font-size: 1.5rem;
+    width: 80%; /* Responsive width adjustment for smaller screens */
+  }
+}
+
+  </style>
+  <title>Ribbon Effect</title>
+</head>
+<body>
+  
+  <div class="svg-container">
+    <svg id="exampleId" viewBox="-5 -5 110 70" width="100" height="100" class="buddy">
+    <!-- Add some SVG content here if needed -->
+    </svg>
+    <div class="name-ribbon">John Doe</div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  adjustRibbonWidth();
+  window.onresize = adjustRibbonWidth;
+});
+
+function adjustRibbonWidth() {
+  var svgElement = document.querySelector('.svg-container svg');
+  var ribbonElement = document.querySelector('.svg-container .name-ribbon');
+  if (svgElement && ribbonElement) {
+    ribbonElement.style.width = svgElement.getBoundingClientRect().width + 'px';
+  }
+}
+
+  </script>
+</body>
+</html>
