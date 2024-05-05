@@ -4,69 +4,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-.name-ribbon {
+.ribbon {
+  width: 400px;
+  height: 60px;
+  margin: 100px auto 0px;
   position: relative;
-  margin: 0 auto;
-  padding: 10px 0;
+  color: #fff;
+  font: 28px/60px sans-serif;
   text-align: center;
-  background-color: #b30000
+  text-transform: uppercase;
+  background: #3D79D0;
 }
 
-.name-ribbon::before, .name-ribbon::after {
-  content: '';
-  width: 20px;
-  height: 100%;
-  background-color: #ff0000;
+.ribbon i {
   position: absolute;
-  z-index: -1;
-  top: 0;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%);
-  background-image: linear-gradient(45deg, transparent 50%, #8b0000 50%);
-  background-size: 20px 20px;
 }
 
-.name-ribbon::before {
+.ribbon i:first-child, .ribbon i:nth-child(2) {
+  position: absolute;
   left: -20px;
+  bottom: -20px;
+  z-index: -1;
+  border: 20px solid transparent;
+  border-right-color: #043140;
 }
 
-.name-ribbon::after {
+.ribbon i:nth-child(2) {
+  left: auto;
   right: -20px;
-  transform: scaleX(-1);
+  border-right-color: transparent;
+  border-left-color: #043140;
 }
 
-@media (max-width: 400px) {
-  .name-ribbon {
-    font-size: 1.5rem;
-    width: 80%; /* Responsive width adjustment for smaller screens */
-  }
+.ribbon i:nth-child(3), .ribbon i:last-child {
+  width: 20px;
+  bottom: -20px;
+  left: -60px;
+  z-index: -2;
+  border: 30px solid #1D53C0;
+  border-left-color: transparent;
 }
+
+.ribbon i:last-child {
+  bottom: -20px;
+  left: auto;
+  right: -60px;
+  border: 30px solid #1D53C0;
+  border-right-color: transparent;
+}
+
+
 
   </style>
   <title>Ribbon Effect</title>
 </head>
 <body>
   
-  <div class="svg-container">
-    <svg id="exampleId" viewBox="-5 -5 110 70" width="100" height="100" class="buddy">
-    <!-- Add some SVG content here if needed -->
-    </svg>
-    <div class="name-ribbon">John Doe</div>
+
+  <i></i>
+  <div class="ribbon">
+    NAME HERE
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
   </div>
+  
+  
+  
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-  adjustRibbonWidth();
-  window.onresize = adjustRibbonWidth;
-});
-
-function adjustRibbonWidth() {
-  var svgElement = document.querySelector('.svg-container svg');
-  var ribbonElement = document.querySelector('.svg-container .name-ribbon');
-  if (svgElement && ribbonElement) {
-    ribbonElement.style.width = svgElement.getBoundingClientRect().width + 'px';
-  }
-}
-
-  </script>
 </body>
 </html>

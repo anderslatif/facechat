@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js" integrity="sha512-zInFF17qBFVvvvFpIfeBzo7Tj7+rQxLeTJDmbxjBz5/zIr89YVbTNelNhdTT+/DCrxoVzBeUPVFJsczKbB7sew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="./ribbon.css">
     <style>
+        @font-face {
+  font-family: 'RobotoMedium';
+  src: url('../Roboto-Medium.ttf') format('truetype');
+}
+
+
 body, html {
+    font-family: 'RobotoMedium', sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: lightgrey;
 }
 
 div > div {
@@ -95,6 +100,8 @@ div > div {
 
 
     </style>
+    <link rel="stylesheet" href="./ribbon.css">
+
     <link rel="icon" type="image/png" href="../chat_icon.png" />
     <title>FaceMaker</title>
 </head>
@@ -104,7 +111,18 @@ div > div {
 
         <div id="left-pane" class="svg-container">
             <div id="face" ></div>
-            <div class="name-ribbon">NAME HERE</div>
+            
+
+            <div id="name-ribbon-wrapper">
+            <i></i><div class="name-ribbon">
+                NAME HERE
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+            </div>
+
         </div>
 
         <div id="right-pane">
@@ -219,9 +237,21 @@ div > div {
     }
 
     function redrawNameRibbonOnPage() {
-        const name = document.getElementById('nickname').value;
-        console.log(name);
-        document.getElementById('name-ribbon').innerHTML = name;
+        let name = document.getElementById('nickname').value;
+        if (name.length > 16) {
+            alert('Name must be less than 16 characters');
+            return;
+        }
+
+        document.getElementById('name-ribbon-wrapper').innerHTML = `
+        <i></i><div class="name-ribbon">
+                ${name}
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+        `;
     }
     
     </script>
