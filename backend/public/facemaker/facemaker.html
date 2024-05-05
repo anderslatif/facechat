@@ -78,7 +78,7 @@ div > div {
     transition: transform 0.3s ease-in-out;
 }
 
-#submit-button {
+#register-button {
   height: 10vh;
   width: 100vw;
   background-color: grey;
@@ -100,7 +100,7 @@ div > div {
 
 
     </style>
-    <link rel="stylesheet" href="./ribbon.css">
+    <link rel="stylesheet" href="/facemaker/ribbon.css">
 
     <link rel="icon" type="image/png" href="../chat_icon.png" />
     <title>FaceMaker</title>
@@ -114,8 +114,9 @@ div > div {
             
 
             <div id="name-ribbon-wrapper">
-            <i></i><div class="name-ribbon">
-                NAME HERE
+            <i></i>
+            <div class="name-ribbon">
+                Anonymous
                 <i></i>
                 <i></i>
                 <i></i>
@@ -142,12 +143,12 @@ div > div {
             <input id="mouth-color" oninput="redrawFaceOnPage()" class="color-picker" type="color">
 
             <div id="selection-label">Nickname</div>
-            <input id="nickname" class="text-input" oninput="redrawNameRibbonOnPage()" value="Anonymous">
+            <input id="nickname" class="text-input" oninput="redrawNameRibbonOnPage()" placeholder="Anonymous">
         </div>
 
     </div>
     
-    <button id="submit-button">Start Chatting</button>
+    <button id="register-button" onclick="registerFace()">Start Chatting</button>
     
     <script>
         const defaultFaceColors = {
@@ -254,6 +255,36 @@ div > div {
         `;
     }
     
+    function registerFace() {
+      const faceColor = document.getElementById('face-color').value;
+      const eyeColor = document.getElementById('eye-color').value;
+      const browColor = document.getElementById('brow-color').value;
+      const mouthColor = document.getElementById('mouth-color').value;
+      const nickname = document.getElementById('nickname').value || "Anonymous";
+
+      fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          faceColor,
+          eyeColor,
+          browColor,
+          mouthColor,
+          nickname
+        })
+      })
+      .then(response => response.json())
+      .then((result) => {
+        if (result.success) {
+          window.location.href = `/chat/${result.chatRoomName}`;
+        } else {
+          alert("Failed to register face");
+        }
+      })
+    }
+
     </script>
 </body>
 </html>
