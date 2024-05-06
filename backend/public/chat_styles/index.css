@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'RobotoMedium';
+    src: url('/Roboto-Medium.ttf') format('truetype');
+}
+
+html, body {
+    font-family: 'RobotoMedium', sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: lightgrey;
+}
+
+#message-textarea {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 5%;
+    resize: none;
+    background-color: grey;
+    box-sizing: border-box;
+    font-size: xx-large;
+}

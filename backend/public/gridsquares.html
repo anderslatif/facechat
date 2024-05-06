@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+.grid-container {
+    display: grid;
+    width: 100vw;
+    max-height: 90vh;  /* Maximum height is 90% of the viewport height */
+    overflow: auto;  /* Allow scrolling if necessary */
+    grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr)); /* Create as many columns as needed */
+    grid-auto-rows: 20vw; /* Each row height should match the column width for square aspect ratio */
+    grid-gap: 10px;
+}
+
+.grid-square {
+    background-color: #4CAF50; /* Just for visibility */
+    width: 100%; /* Each square should fill the column */
+    padding-top: 100%; /* Maintain aspect ratio */
+    position: relative;
+}
+
+
+
+
+
+    
+
+    </style>
+    <title>FaceChat</title>
+</head>
+<body>
+
+  <div id="grid-container" class="grid-container">
+  </div>
+
+    
+    <script src="/chat.js"></script>
+</body>
+</html>

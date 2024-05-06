@@ -1,0 +1,36 @@
+.wink > .left-eye, .wink > .right-eye {
+    transform: scale(1);
+    transform-origin: 45% 45%;
+    animation: wink 250ms ease-in-out 1;
+  }
+  .blink > .left-eye, .blink > .right-eye {
+    transform: scale(1);
+    animation: wink 250ms ease-in-out 1;
+  }
+  .eye .white {
+    fill: white;
+  }
+
+  .eyebrow {
+    stroke-linecap: round;
+    /*display: none;*/
+  }
+  @keyframes wink {
+    50% {
+      transform: scale(1.2, 0.1);
+    }
+    0%, 100% {
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      -webkit-animation-duration: 0.01ms !important;
+              animation-duration: 0.01ms !important;
+      -webkit-animation-iteration-count: 1 !important;
+              animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }

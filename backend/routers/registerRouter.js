@@ -20,7 +20,7 @@ router.post('/api/register', (req, res) => {
         return res.status(400).send({ message: "Mouth color is required" });
     }
 
-    const chatRoomName = "general";
+    const chatRoomName = "public";
 
     req.session.user = { nickname, faceColor, eyeColor, mouthColor, chatRoomName };
 
