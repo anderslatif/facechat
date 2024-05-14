@@ -31,7 +31,7 @@ document.addEventListener('mousemove', function(event) {
 });
 
 document.addEventListener("mousedown", () => {
-    const faceElements = Array.from(document.querySelectorAll(".buddy"));
+    const faceElements = Array.from(document.querySelectorAll(".svg-face"));
     faceElements.forEach((faceElement) => faceElement.classList.add("wink"));    
 });
 
