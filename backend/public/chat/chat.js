@@ -1,79 +1,56 @@
 
-function createFaceSVG(face, i, j) {
-  const { faceColor, eyeColor, mouthColor, browColor, id, name } = face;
-
-  return `
-      
-  <div id=${id} class="svg-container">
-      <svg  x=${i * w} y=${j * w} class="svg-face" viewBox="-5 -5 110 70" 
-          width=${w} height=${w} style="position: relative; z-index: 0;">
-          <ellipse cx="50" cy="30" rx="50" ry="50" class="face" fill="${faceColor}" />
-          <ellipse cx="30" cy="27.5" rx="10" ry="10" class="eye right-eye" fill="white" />
-          <ellipse id="pupil-${i}-${j}-right" cx="30" cy="27.5" rx="5" ry="5" class="pupil" fill="${eyeColor}" />
-          <ellipse cx="70" cy="27.5" rx="10" ry="10" class="eye left-eye" fill="white" />
-          <ellipse id="pupil-${i}-${j}-left" cx="70" cy="27.5" rx="5" ry="5" class="pupil" fill="${eyeColor}" />
-          <path d="M30 50 c0 20, 40 20, 40 0" class="mouth" fill="${mouthColor}" />
-          <path d="M17.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow" stroke="${browColor}" stroke-width=5 />
-          <path d="M57.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow" stroke="${browColor}" stroke-width=5 />
-      </svg>
-      <div style="font-size: 1em;">${name}</div> 
-      <div class="speech-bubble">
-      </div>
-  </div>
-  `;
-}
-
-const faces = [];
-let id = 0;
-for (let i = 0; i < 30; i++) {
-  const faceColors = getFaceColors();
-  id++;
-  const name = "Name: " + id;
-  const face = { id, ...faceColors, name };
-  faces.push(face);
-}
-
-function optimalGrid(n) {
-  let nCols = Math.ceil(Math.sqrt(n));
-  while (n % nCols !== 0) {
-    nCols++;
-  }
-  let nRows = n / nCols;
-  return { nRows, nCols };
-}
 
 
-const width = window.innerWidth;
-const { nRows, nCols } = optimalGrid(faces.length);
+// for (let i = 0; i < 30; i++) {
+//   const faceColors = getFaceColors();
+//   id++;
+//   const nickname = "Name: " + id;
+//   const face = { id, ...faceColors, nickname };
+//   faces.push(face);
+// }
 
 
-const w = width / (nCols * 2);
-const svgFaces = `<div style="width: ${width}px;">
-  ${faces.map((face, i) => createFaceSVG(face, i % nCols, Math.floor(i / nCols))).join('')}
-</div>`;
 
-const facesGallery = document.getElementById("face-gallery");
-facesGallery.innerHTML = svgFaces;
 
-const elements = Array.from(document.querySelectorAll(".svg-face"));
+const socket = io();
+let myId;
 
-const wait = () =>
-250 + Math.pow(elements.length, 0.75) * 1 * 1000 * Math.random();
-
-elements.forEach((buddy) => {
-  let timerId = setTimeout(function tick() {
-    buddy.classList.add("wink");
-    timerId = setTimeout(tick, wait());
-  }, wait());
-  buddy.addEventListener("animationend", () => {
-    buddy.classList.remove("wink");
-  });
+socket.on("receive-id", ({ id }) => {
+  myId = id;
 });
 
+socket.on("update-faces", ({ faces }) => {
+  const width = window.innerWidth;
+  const { nRows, nCols } = optimalGrid(faces.length);
+  const w = width / (nCols * 4);
+
+  const svgFaces = `<div style="width: ${width}px;">
+    ${faces.map((face, i) => createFaceSVG(face, i % nCols, Math.floor(i / nCols), w)).join('')}
+  </div>`;
+
+  
+
+  const facesGallery = document.getElementById("face-gallery");
+  facesGallery.innerHTML = svgFaces;
+
+  const svgFacesElements = Array.from(document.querySelectorAll(".svg-face"));
+  makeBlink(svgFacesElements);
+});
+
+socket.on("server-broadcasts-chat-message", ({ id, message }) => {
+  console.log("server-broadcasts-chat-message", id, message);
+  const faceElement = document.getElementById(id);
+  showSpeechBubble(faceElement, message);
+});
+
+
+  
 document.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    const speakingDiv = document.getElementById("1");
-    showSpeechBubble(speakingDiv, "Hello, this is a test message!");
+    const messageTextarea = document.getElementById("message-textarea");
+    const message = messageTextarea.value;
+    messageTextarea.value = "";
+    socket.emit("client-submits-chat-message", { id: myId, message });
   }
 });
 
