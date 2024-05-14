@@ -1,17 +1,4 @@
 
-
-
-// for (let i = 0; i < 30; i++) {
-//   const faceColors = getFaceColors();
-//   id++;
-//   const nickname = "Name: " + id;
-//   const face = { id, ...faceColors, nickname };
-//   faces.push(face);
-// }
-
-
-
-
 const socket = io();
 let myId;
 
@@ -44,12 +31,16 @@ socket.on("server-broadcasts-chat-message", ({ id, message }) => {
 });
 
 
-  
+const messageInput = document.getElementById("message-input");
+const messageLengthLimit = 200;
+
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    const messageTextarea = document.getElementById("message-textarea");
-    const message = messageTextarea.value;
-    messageTextarea.value = "";
+  if (event.key === "Enter" || messageInput.value.length > messageLengthLimit) {
+    const message = messageInput.value;
+    messageInput.value = "";
+    if (message.length === 0) {
+      return;
+    }
     socket.emit("client-submits-chat-message", { id: myId, message });
   }
 });
@@ -60,16 +51,22 @@ function showSpeechBubble(element, message) {
   speechBubble.style.display = 'block'; // Make the speech bubble visible
   speechBubble.style.opacity = 0; // Start with the bubble fully transparent
 
+  if (speechBubble.fadeTimeout) {
+    clearTimeout(speechBubble.fadeTimeout);
+    clearTimeout(speechBubble.hideTimeout);
+  }
+
   // Allow a small delay for CSS to catch up, then fade in
   setTimeout(() => {
     speechBubble.style.opacity = 1;
   }, 10);
 
   // Fade out after 5 seconds
-  setTimeout(() => {
+  speechBubble.fadeTimeout = setTimeout(() => {
     speechBubble.style.opacity = 0;
 
-    setTimeout(() => {
+    // Set to display none after the transition to fully transparent
+    speechBubble.hideTimeout = setTimeout(() => {
       speechBubble.style.display = 'none';
     }, 500); // This timeout matches the transition duration
   }, 5000);

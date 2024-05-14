@@ -1,3 +1,5 @@
+import escape from "escape-html";
+import filterProfanity from "../util/profanityFilter.js";
 import { Router } from 'express';
 const router = Router();
 
@@ -22,8 +24,13 @@ router.post('/api/register', (req, res) => {
 
     const chatRoomName = "public";
 
-    req.session.user = { nickname, faceColor, eyeColor, mouthColor, chatRoomName };
-
+    req.session.user = { 
+        nickname: escape(filterProfanity(nickname)), 
+        faceColor: escape(faceColor), 
+        eyeColor: escape(eyeColor), 
+        mouthColor: escape(mouthColor), 
+        chatRoomName
+    }
 
     res.send({ success: true, message: "Registration successful", chatRoomName });
 });

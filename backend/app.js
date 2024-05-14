@@ -17,7 +17,7 @@ app.use(sessionMiddleware)
 
 import http from "http";
 const server = http.createServer(app);
-import setupSocketServer from "./public/util/sockets.js";
+import setupSocketServer from "./util/sockets.js";
 setupSocketServer(server, sessionMiddleware);
 
 

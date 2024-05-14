@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/anderslatif/isthisrealchat#readme",
   "dependencies": {
+    "bad-words": "^3.0.4",
     "dotenv": "^16.4.5",
+    "escape-html": "^1.0.3",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "socket.io": "^4.7.5"

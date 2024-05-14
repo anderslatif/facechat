@@ -12,7 +12,7 @@ html, body {
     background-color: lightgrey;
 }
 
-#message-textarea {
+#message-input {
     position: fixed;
     bottom: 0;
     width: 100%;

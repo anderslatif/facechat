@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const input = document.getElementById('message-textarea');
+    const input = document.getElementById('message-input');
 
     // Continuously focus the input
     input.focus();
