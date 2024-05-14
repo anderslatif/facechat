@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'RobotoMedium';
-    src: url('/Roboto-Medium.ttf') format('truetype');
+    src: url('/assets/Roboto-Medium.ttf') format('truetype');
 }
 
 html, body {

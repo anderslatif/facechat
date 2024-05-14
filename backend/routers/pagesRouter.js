@@ -17,7 +17,7 @@ router.get("/chat/:roomName", (req, res) => {
         return res.redirect("/");
     }
 
-    res.sendFile(path.resolve('./public/chat.html'));
+    res.sendFile(path.resolve('./public/chat/chat.html'));
 });
 
 export default router;
