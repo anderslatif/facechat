@@ -40,6 +40,14 @@ function setupSocketServer(server, sessionMiddleware) {
             io.emit("server-broadcasts-chat-message", { id, message: safeMessage });
         });
 
+        socket.on("client-updates-pupils", (data) => {
+            socket.broadcast.emit("update-pupils", data);
+        });
+
+        socket.on("client-winks", (data) => {
+            socket.broadcast.emit("update-winks", data);
+        });
+
         socket.on("disconnect", () => {
             faces = faces.filter((face) => face.id !== socket.id);
             io.emit("update-faces", { faces: faces });        

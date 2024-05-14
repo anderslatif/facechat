@@ -2,9 +2,7 @@
 const socket = io();
 let myId;
 
-socket.on("receive-id", ({ id }) => {
-  myId = id;
-});
+
 
 socket.on("update-faces", ({ faces }) => {
   const width = window.innerWidth;
@@ -25,7 +23,6 @@ socket.on("update-faces", ({ faces }) => {
 });
 
 socket.on("server-broadcasts-chat-message", ({ id, message }) => {
-  console.log("server-broadcasts-chat-message", id, message);
   const faceElement = document.getElementById(id);
   showSpeechBubble(faceElement, message);
 });
@@ -71,7 +68,4 @@ function showSpeechBubble(element, message) {
     }, 500); // This timeout matches the transition duration
   }, 5000);
 }
-
-
-
 
