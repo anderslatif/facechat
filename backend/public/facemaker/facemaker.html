@@ -80,11 +80,11 @@ div > div {
 
 #register-button {
   height: 10vh;
-  width: 100vw;
-  margin-bottom: 3vh;
+  width: 99vw;
+  margin: 0 0.5vw 0.5vh 0.5vw;
   background-color: grey;
   color: white;
-  font-size: 2vh;
+  font-size: 3vh;
   cursor: pointer;
   transition: background-color 0.3s ease; 
 }
@@ -150,6 +150,8 @@ div > div {
     <button id="register-button" onclick="registerFace()">Start Chatting</button>
     
     <script>
+        redrawNameRibbonOnPage();
+
         const defaultFaceColors = {
             mediumAlmond: "#c79377",
             mediumDeepRose: "#e88c94",
@@ -237,7 +239,7 @@ div > div {
     }
 
     function redrawNameRibbonOnPage() {
-        let name = document.getElementById('nickname').value;
+        let name = document.getElementById('nickname').value || "Anonymous";
         if (name.length > 16) {
             alert('Name must be less than 16 characters');
             return;

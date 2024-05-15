@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('blur', () => {
         setTimeout(() => {
             input.focus();
-        }, 0);
+        },  0);
     });
 });
 

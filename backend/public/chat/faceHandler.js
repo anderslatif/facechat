@@ -62,7 +62,7 @@ function toggleMouth(id, duration) {
     const face = document.getElementById(id);
     const mouth = face.querySelector('.mouth');
     let isOpen = false; 
-    const intervalTime = 500; 
+    const intervalTime = 400; 
 
     const intervalId = setInterval(() => {
         if (isOpen) {
