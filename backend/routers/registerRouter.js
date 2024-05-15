@@ -4,7 +4,7 @@ import { Router } from 'express';
 const router = Router();
 
 router.post('/api/register', (req, res) => {
-    const { nickname, faceColor, eyeColor, mouthColor } = req.body;
+    const { nickname, faceColor, browColor, eyeColor, mouthColor } = req.body;
     if (!nickname) {
         nickname = "Anonymous";
     }
@@ -14,6 +14,9 @@ router.post('/api/register', (req, res) => {
 
     if (!faceColor) {
         return res.status(400).send({ message: "Face color is required" });
+    }
+    if (!browColor) {
+        return res.status(400).send({ message: "Brow color is required" });
     }
     if (!eyeColor) {
         return res.status(400).send({ message: "Eye color is required" });
@@ -29,6 +32,7 @@ router.post('/api/register', (req, res) => {
         faceColor: escape(faceColor), 
         eyeColor: escape(eyeColor), 
         mouthColor: escape(mouthColor), 
+        browColor: escape(browColor),
         chatRoomName
     }
 

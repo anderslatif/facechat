@@ -50,11 +50,20 @@
 
 
 
-      #speech-bubble {
-        transition: visibility 0s, opacity 0.5s linear;
-      }
+    #speech-bubble {
+      transition: visibility 0s, opacity 0.5s linear;
+    }
 
     
+    .sleep-element {
+      transition: transform 0.5s ease;
+      transform-style: preserve-3d; /* Ensures the 3D effect is preserved */
+    }
+
+    .sleep {
+        transform: rotateY(180deg); /* Rotates the element 180 degrees around the Y-axis */
+    }
+
 
     </style>
 

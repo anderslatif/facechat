@@ -48,6 +48,14 @@ function setupSocketServer(server, sessionMiddleware) {
             socket.broadcast.emit("update-winks", data);
         });
 
+        socket.on("client-sleeps", (data) => {
+            socket.broadcast.emit("update-sleep", data);
+        });
+
+        socket.on("client-wakes", (data) => {
+            socket.broadcast.emit("update-wake", data);
+        });
+
         socket.on("disconnect", () => {
             faces = faces.filter((face) => face.id !== socket.id);
             io.emit("update-faces", { faces: faces });        

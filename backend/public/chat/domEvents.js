@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
 function handleEyeMovement(id, clientX, clientY) {
     const face = document.getElementById(id);
     const pupils = face.querySelectorAll('.pupil');
@@ -31,6 +32,7 @@ function handleEyeMovement(id, clientX, clientY) {
         pupil.setAttribute('cy', pupilOffsetY);
     });
 }
+
 socket.on("receive-id", ({ id }) => {
     myId = id;
 
@@ -42,13 +44,47 @@ socket.on("receive-id", ({ id }) => {
     });
 
     document.addEventListener("mousedown", () => {
+        const face = document.getElementById(myId);
+        const isAsleep = face.querySelectorAll(".sleep").length > 0;
+        if (isAsleep) {
+            return;
+        }
         handleWink(myId);
         socket.emit("client-winks", { id: myId });
     });
+
+    myFaceSVGContainer = document.getElementById(myId);
+
+    window.addEventListener('focus', (event) => {
+        handleWake(myId);
+        socket.emit('client-wakes', { id: myId });
+    });
+    
+    window.addEventListener('blur', (event) => {
+        handleSleep(myId);
+        socket.emit('client-sleeps', { id: myId });
+    });
 });
 
+function handleSleep(id) {
+    const face = document.getElementById(id);
+    const sleepElements = face.querySelectorAll('.sleep-element');
+    sleepElements.forEach((sleepElement) => sleepElement.classList.add('sleep'));
+}
 
+function handleWake(id) {
+    const face = document.getElementById(id);
+    const sleepElements = face.querySelectorAll('.sleep-element');
+    sleepElements.forEach((sleepElement) => sleepElement.classList.remove('sleep'));
+}
 
+socket.on('update-sleep', ({ id }) => {
+    handleSleep(id);
+});
+
+socket.on('update-wake', ({ id }) => {
+    handleWake(id);
+});
 
 socket.on('update-pupils', ({ id, clientX, clientY }) => {
     handleEyeMovement(id, clientX, clientY);

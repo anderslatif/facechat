@@ -13,8 +13,6 @@ socket.on("update-faces", ({ faces }) => {
     ${faces.map((face, i) => createFaceSVG(face, i % nCols, Math.floor(i / nCols), w)).join('')}
   </div>`;
 
-  
-
   const facesGallery = document.getElementById("face-gallery");
   facesGallery.innerHTML = svgFaces;
 
