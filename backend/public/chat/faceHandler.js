@@ -11,8 +11,8 @@ function createFaceSVG(face, i, j, w) {
             <ellipse cx="70" cy="27.5" rx="10" ry="10" class="eye left-eye sleep-element" fill="white" />
             <ellipse id="pupil-${i}-${j}-left" cx="70" cy="27.5" rx="5" ry="5" class="pupil sleep-element" fill="${eyeColor}" />
             <path d="M30 50 c0 20, 40 20, 40 0" class="mouth sleep-element" fill="${mouthColor}" />
-            <path d="M17.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow sleep-element" stroke="${browColor}" stroke-width=5 />
-            <path d="M57.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow sleep-element" stroke="${browColor}" stroke-width=5 />
+            <path d="M17.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow sleep-element" stroke="${browColor}" stroke-width=6 />
+            <path d="M57.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow sleep-element" stroke="${browColor}" stroke-width=6 />
         </svg>
         <div class="nickname" style="font-size: 1em;">
             ${nickname}

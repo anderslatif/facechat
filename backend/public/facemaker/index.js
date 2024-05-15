@@ -1,20 +1,3 @@
-redrawNicknameTagOnPage();
-
-
-
-function redrawFaceOnPage() {
-    const faceSVG = createFaceSVG();
-    document.getElementById('face').innerHTML = faceSVG;
-}
-
-function redrawNicknameTagOnPage() {
-  const name = document.getElementById('nickname-input').value || "Anonymous";
-    if (name.length > 16) {
-        alert('Name must be less than 16 characters');
-        return;
-    }
-  document.getElementById('nickname-tag').textContent = name;
-}
 
 function registerFace() {
   const faceColor = document.getElementById('face-color').value;
@@ -52,6 +35,15 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+
+// this issues when users hit the back button to the page and the input field values are being cached
+window.addEventListener('pageshow', () => {
+  redrawFaceOnPage();
+  redrawNicknameTagOnPage();
+});
+
+
+// Add a loading animation to the register button
 const button = document.getElementById('register-button');
 let dotCount = 0;
 

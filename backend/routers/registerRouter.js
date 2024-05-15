@@ -34,7 +34,7 @@ router.post('/api/register', (req, res) => {
         mouthColor: escape(mouthColor), 
         browColor: escape(browColor),
         chatRoomName
-    }
+    };
 
     res.send({ success: true, message: "Registration successful", chatRoomName });
 });
