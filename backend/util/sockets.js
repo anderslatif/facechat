@@ -30,7 +30,7 @@ function setupSocketServer(server, sessionMiddleware) {
 
         socket.on("client-submits-chat-message", ({ id, message }) => {
             // let safeMessage = escape(filterProfanity(message));
-            let safeMessage = filterProfanity(message);
+            let safeMessage = filterProfanity(escape(message));
             if (safeMessage.length > messageLengthLimit) {
                 safeMessage = safeMessage.substring(0, messageLengthLimit);
             }

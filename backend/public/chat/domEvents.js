@@ -66,12 +66,20 @@ socket.on("receive-id", ({ id }) => {
 
 function handleSleep(id) {
     const face = document.getElementById(id);
+
+    const nicknameInactiveLabel = face.querySelector('.nickname-inactive-label');
+    nicknameInactiveLabel.style.display = 'inline';
+
     const sleepElements = face.querySelectorAll('.sleep-element');
     sleepElements.forEach((sleepElement) => sleepElement.classList.add('sleep'));
 }
 
 function handleWake(id) {
     const face = document.getElementById(id);
+
+    const nicknameInactiveLabel = face.querySelector('.nickname-inactive-label');
+    nicknameInactiveLabel.style.display = 'none';
+
     const sleepElements = face.querySelectorAll('.sleep-element');
     sleepElements.forEach((sleepElement) => sleepElement.classList.remove('sleep'));
 }

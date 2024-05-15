@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'RobotoMedium';
+  src: url('/assets/Roboto-Medium.ttf') format('truetype');
+}
+
+
+body, html {
+    font-family: 'RobotoMedium', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#pane-view {
+    display: flex; 
+    height: 90vh;
+    width: 95vw;
+}
+
+#left-pane, #right-pane {
+  height: 90vh; /* Adjusting to leave space for the button */
+}
+
+#left-pane {
+  flex: 1; /* Takes up remaining space */
+}
+
+#right-pane {
+  flex: 1; /* Takes up remaining space */
+}
+
+#right-pane > div {
+  margin: 10px 0; /* Spacing between rows */
+}
+
+#face {
+  text-align: center;
+  width: 100%; /* Utilizes full width of the container */
+}
+
+.color-picker {
+    width: 100%;    
+}
+
+.text-input {
+    width: 98%;
+    font-size: large;
+}
+
+#selection-label {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#randomize-button {
+    width: 100%;
+    color: white;
+    font-size: 2vh;
+    background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red); /* Full spectrum rainbow */
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+#register-button {
+  height: 10vh;
+  width: 99vw;
+  margin: 0 0.5vw 0.5vh 0.5vw;
+  background-color: grey;
+  color: white;
+  font-size: 3vh;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+#register-button:hover {
+  background-color: darkgrey;
+}
+
+#nickname-tag {
+  font-size: 4vh;
+  font-weight: bold;
+  background-color: darkgrey;
+  padding: 1vh;
+  border-radius: 10px;
+}
+
+@media (max-width: 400px) {
+  #nickname-tag {
+    font-size: 1rem;
+  }
+  
+  #register-button {
+    font-size: 1rem;
+  }
+}

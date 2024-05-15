@@ -14,7 +14,10 @@ function createFaceSVG(face, i, j, w) {
             <path d="M17.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow sleep-element" stroke="${browColor}" stroke-width=5 />
             <path d="M57.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow sleep-element" stroke="${browColor}" stroke-width=5 />
         </svg>
-        <div style="font-size: 1em;">${nickname}</div> 
+        <div class="nickname" style="font-size: 1em;">
+            ${nickname}
+            <i class="nickname-inactive-label">(inactive)</i>
+        </div>
         <div class="speech-bubble">
         </div>
     </div>

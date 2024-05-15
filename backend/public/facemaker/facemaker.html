@@ -4,102 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js" integrity="sha512-zInFF17qBFVvvvFpIfeBzo7Tj7+rQxLeTJDmbxjBz5/zIr89YVbTNelNhdTT+/DCrxoVzBeUPVFJsczKbB7sew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <style>
-@font-face {
-  font-family: 'RobotoMedium';
-  src: url('/assets/Roboto-Medium.ttf') format('truetype');
-}
 
-
-body, html {
-    font-family: 'RobotoMedium', sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-div > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#pane-view {
-    display: flex; 
-    height: 90vh;
-    width: 95vw;
-}
-
-#left-pane, #right-pane {
-  height: 90vh; /* Adjusting to leave space for the button */
-}
-
-#left-pane {
-  flex: 1; /* Takes up remaining space */
-}
-
-#right-pane {
-  flex: 1; /* Takes up remaining space */
-}
-
-#right-pane > div {
-  margin: 10px 0; /* Spacing between rows */
-}
-
-#face {
-  text-align: center;
-  width: 100%; /* Utilizes full width of the container */
-}
-
-.color-picker {
-    width: 100%;    
-}
-
-.text-input {
-    width: 98%;
-    font-size: large;
-}
-
-#selection-label {
-    font-size: x-large;
-    font-weight: bold;
-}
-
-#randomize-button {
-    width: 100%;
-    color: white;
-    font-size: 2vh;
-    background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red); /* Full spectrum rainbow */
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-}
-
-#register-button {
-  height: 10vh;
-  width: 99vw;
-  margin: 0 0.5vw 0.5vh 0.5vw;
-  background-color: grey;
-  color: white;
-  font-size: 3vh;
-  cursor: pointer;
-  transition: background-color 0.3s ease; 
-}
-
-#register-button:hover {
-  background-color: darkgrey;
-}
-
-@media (max-width: 400px) {
-  #submit-button {
-    font-size: 1.5rem;
-  }
-}
-    </style>
-    <link rel="stylesheet" href="/facemaker/ribbon.css">
+    <link rel="stylesheet" href="/facemaker/index.css" />
 
     <link rel="icon" type="image/png" href="/assets/chat_icon.png" />
     <title>FaceMaker</title>
@@ -111,17 +17,7 @@ div > div {
         <div id="left-pane" class="svg-container">
             <div id="face" ></div>
             
-
-            <div id="name-ribbon-wrapper">
-            <i></i>
-            <div class="name-ribbon">
-                Anonymous
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-              </div>
-            </div>
+            <div id="nickname-tag"></div>
 
         </div>
 
@@ -142,157 +38,16 @@ div > div {
             <input id="mouth-color" oninput="redrawFaceOnPage()" class="color-picker" type="color">
 
             <div id="selection-label">Nickname</div>
-            <input id="nickname" class="text-input" oninput="redrawNameRibbonOnPage()" placeholder="Anonymous">
+            <input id="nickname-input" class="text-input" oninput="redrawNicknameTagOnPage()" placeholder="Anonymous">
         </div>
 
     </div>
     
     <button id="register-button" onclick="registerFace()">Start Chatting</button>
     
-    <script>
-        redrawNameRibbonOnPage();
 
-        const defaultFaceColors = {
-            mediumAlmond: "#c79377",
-            mediumDeepRose: "#e88c94",
-            lightMediumAlmond: "#d9af9e",
-            lightMediumRose: "#f3aeb3",
-            lightAlmond: "#e6b9b4",
-            lightRose: "#fbc7c4",
-            lightMediumGolden: "#f2c8a2",
-            veryLightAlmond: "#ede6cf",
-            lightGolden: "#eddcc5",
-            veryLightRose: "#f8e1e2",
-            veryLightGolden: "#f0dece",
-            deepestAlmond: "#533528",
-            extraDeepGolden: "#614430",
-            extraDeepRose: "#6d4d4c",
-            extraDeepAlmond: "#6e4f45",
-            veryDeepAlmond: "#88605f",
-            deepGolden: "#8c5b2a",
-            mediumDeepGolden: "#a06b4f",
-            deepAlmond: "#976a59",
-            veryDeepRose: "#906c65",
-            deepRose: "#b96e6b",
-            mediumDeepAlmond: "#ac8068",
-            mediumGolden: "#dda26b"
-        };
+    <script src="/facemaker/index.js"></script>
+    <script src="/facemaker/faceCreation.js"></script>
 
-        function randomizeChoices() {
-            const faceColorInput = document.getElementById('face-color');
-            const eyeColorInput = document.getElementById('eye-color');
-            const browColorInput = document.getElementById('brow-color');
-            const mouthColorInput = document.getElementById('mouth-color');
-            
-            const faceColor = defaultFaceColors[Object.keys(defaultFaceColors)[Math.floor(Math.random() * Object.keys(defaultFaceColors).length)]];
-            const eyeColors = [
-                /* Brown */ "#6f4e37",
-                /* Dark Brown */ "#3D2B1F",
-                /* Green */ "#0f9e12",
-                /* Blue */ "#0000ff",
-                /* Black */ "#000000",
-                /* Black */ "#000000",
-            ];
-            const eyeColor = eyeColors[Math.floor(Math.random() * eyeColors.length)];
-            // random numbers between -2 and 2
-            const browColor = chroma(faceColor).darken(Math.random() * 4 - 1);
-            const mouthColor = chroma(faceColor).brighten(Math.random() * 4 - 1);
-
-
-
-            faceColorInput.value = faceColor;
-            eyeColorInput.value = eyeColors[Math.floor(Math.random() * eyeColors.length)];
-            browColorInput.value = browColor;
-            mouthColorInput.value =  mouthColor;
-
-            redrawFaceOnPage()
-        }
-
-        randomizeChoices();
-
-    function createFaceSVG() {
-        const faceColor = document.getElementById('face-color').value;
-        const eyeColor = document.getElementById('eye-color').value;
-        const browColor = document.getElementById('brow-color').value;
-        const mouthColor = document.getElementById('mouth-color').value;
-
-
-        return `
-        <svg class="face-svg" viewBox="-5 -5 110 70" 
-                            width=${100} height=${100} style="position: relative; z-index: 1;">
-            <ellipse cx="50" cy="30" rx="50" ry="50" class="face" fill="${faceColor}" />
-            <ellipse cx="30" cy="27.5" rx="10" ry="10" class="eye right-eye" fill="white" />
-            <ellipse id="pupil-${1}-${2}-right" cx="30" cy="27.5" rx="5" ry="5" class="pupil" fill="${eyeColor}" />
-            <ellipse cx="70" cy="27.5" rx="10" ry="10" class="eye left-eye" fill="white" />
-            <ellipse id="pupil-${1}-${2}-left" cx="70" cy="27.5" rx="5" ry="5" class="pupil" fill="${eyeColor}" />
-            <path d="M30 50 c0 20, 40 20, 40 0" class="mouth" fill="${mouthColor}" />
-            <path d="M17.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow" stroke="${browColor}" stroke-width=5 />
-            <path d="M57.5 10 c0 0, 12.5 -6, 25 0" class="eyebrow" stroke="${browColor}" stroke-width=5 />
-        
-        </svg>
-        `;
-    }
-
-    function redrawFaceOnPage() {
-        const faceSVG = createFaceSVG();
-        document.getElementById('face').innerHTML = faceSVG;
-    }
-
-    function redrawNameRibbonOnPage() {
-        let name = document.getElementById('nickname').value || "Anonymous";
-        if (name.length > 16) {
-            alert('Name must be less than 16 characters');
-            return;
-        }
-
-        document.getElementById('name-ribbon-wrapper').innerHTML = `
-        <i></i><div class="name-ribbon">
-                ${name}
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-              </div>
-        `;
-    }
-    
-    function registerFace() {
-      const faceColor = document.getElementById('face-color').value;
-      const eyeColor = document.getElementById('eye-color').value;
-      const browColor = document.getElementById('brow-color').value;
-      const mouthColor = document.getElementById('mouth-color').value;
-      const nickname = document.getElementById('nickname').value || "Anonymous";
-
-      fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          faceColor,
-          eyeColor,
-          browColor,
-          mouthColor,
-          nickname
-        })
-      })
-      .then(response => response.json())
-      .then((result) => {
-        if (result.success) {
-          window.location.href = `/chat/${result.chatRoomName}`;
-        } else {
-          alert("Failed to register face");
-        }
-      })
-    }
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === "Enter") {
-        registerFace();
-      }
-    });
-
-
-    </script>
 </body>
 </html>
