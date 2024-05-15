@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js" integrity="sha512-zInFF17qBFVvvvFpIfeBzo7Tj7+rQxLeTJDmbxjBz5/zIr89YVbTNelNhdTT+/DCrxoVzBeUPVFJsczKbB7sew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        @font-face {
+@font-face {
   font-family: 'RobotoMedium';
   src: url('/assets/Roboto-Medium.ttf') format('truetype');
 }
@@ -81,6 +81,7 @@ div > div {
 #register-button {
   height: 10vh;
   width: 100vw;
+  margin-bottom: 3vh;
   background-color: grey;
   color: white;
   font-size: 2vh;
@@ -88,17 +89,15 @@ div > div {
   transition: background-color 0.3s ease; 
 }
 
-
+#register-button:hover {
+  background-color: darkgrey;
+}
 
 @media (max-width: 400px) {
   #submit-button {
     font-size: 1.5rem;
   }
 }
-
-
-
-
     </style>
     <link rel="stylesheet" href="/facemaker/ribbon.css">
 

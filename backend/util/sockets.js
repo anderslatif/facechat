@@ -15,11 +15,12 @@ function setupSocketServer(server, sessionMiddleware) {
     io.on("connection", (socket) => {
         socket.emit("receive-id", { id: socket.id });
 
-        socket.request.session.user.id = socket.id;
-
         if (!socket.request.session.user) {
             return;
         }
+
+        socket.request.session.user.id = socket.id;
+
         const faceInfo = socket.request.session.user;
         faceInfo.id = socket.id;
         faces.push(faceInfo);

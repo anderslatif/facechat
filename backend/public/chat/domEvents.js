@@ -53,13 +53,11 @@ socket.on("receive-id", ({ id }) => {
         socket.emit("client-winks", {});
     });
 
-    myFaceSVGContainer = document.getElementById(myId);
-
     window.addEventListener('blur', (event) => {
         handleSleep(myId);
         socket.emit('client-sleeps', {});
     });
-    
+
     window.addEventListener('focus', (event) => {
         handleWake(myId);
         socket.emit('client-wakes', {});

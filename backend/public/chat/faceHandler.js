@@ -58,3 +58,24 @@ function makeBlink(elements) {
 }
 
   
+function toggleMouth(id, duration) {
+    const face = document.getElementById(id);
+    const mouth = face.querySelector('.mouth');
+    let isOpen = false; 
+    const intervalTime = 500; 
+
+    const intervalId = setInterval(() => {
+        if (isOpen) {
+            mouth.setAttribute('d', 'M30 50 c0 10, 40 10, 40 0'); // Slightly closed
+        } else {
+            mouth.setAttribute('d', 'M30 50 c0 30, 40 30, 40 0'); // Open
+        }
+        isOpen = !isOpen;
+    }, intervalTime);
+
+    setTimeout(() => {
+        clearInterval(intervalId);
+        // Reset the mouth to a default state
+        mouth.setAttribute('d', 'M30 50 c0 20, 40 20, 40 0');
+    }, duration);
+}

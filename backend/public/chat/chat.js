@@ -22,7 +22,9 @@ socket.on("update-faces", ({ faces }) => {
 
 socket.on("server-broadcasts-chat-message", ({ id, message }) => {
   const faceElement = document.getElementById(id);
-  showSpeechBubble(faceElement, message);
+  const messageDisplayTime = calculateMessageDisplayTime(message);
+  toggleMouth(id, messageDisplayTime/2);
+  showSpeechBubble(faceElement, message, messageDisplayTime);
 });
 
 
@@ -40,7 +42,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-function showSpeechBubble(element, message) {
+function showSpeechBubble(element, message, duration) {
   const speechBubble = element.querySelector('.speech-bubble');
   speechBubble.textContent = message;
   speechBubble.style.display = 'block'; // Make the speech bubble visible
@@ -64,6 +66,17 @@ function showSpeechBubble(element, message) {
     speechBubble.hideTimeout = setTimeout(() => {
       speechBubble.style.display = 'none';
     }, 500); // This timeout matches the transition duration
-  }, 5000);
+  }, duration);
+}
+
+function calculateMessageDisplayTime(message) {
+  const minDuration = 5000; // 5 seconds in milliseconds
+  const maxDuration = 15000; // 15 seconds in milliseconds
+
+  // Calculate duration scaling directly from the message length
+  let duration = minDuration + (message.length * (maxDuration - minDuration) / 200);
+
+  // Clamp the duration to the min and max limits
+  return Math.max(minDuration, Math.min(maxDuration, duration));
 }
 
