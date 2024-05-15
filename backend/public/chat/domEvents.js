@@ -40,7 +40,7 @@ socket.on("receive-id", ({ id }) => {
         const clientX = event.clientX;
         const clientY = event.clientY;
         handleEyeMovement(myId, clientX, clientY);
-        socket.emit('client-updates-pupils', { id: myId, clientX, clientY });
+        socket.emit('client-updates-pupils', { clientX, clientY });
     });
 
     document.addEventListener("mousedown", () => {
@@ -50,19 +50,19 @@ socket.on("receive-id", ({ id }) => {
             return;
         }
         handleWink(myId);
-        socket.emit("client-winks", { id: myId });
+        socket.emit("client-winks", {});
     });
 
     myFaceSVGContainer = document.getElementById(myId);
 
-    window.addEventListener('focus', (event) => {
-        handleWake(myId);
-        socket.emit('client-wakes', { id: myId });
-    });
-    
     window.addEventListener('blur', (event) => {
         handleSleep(myId);
-        socket.emit('client-sleeps', { id: myId });
+        socket.emit('client-sleeps', {});
+    });
+    
+    window.addEventListener('focus', (event) => {
+        handleWake(myId);
+        socket.emit('client-wakes', {});
     });
 });
 

@@ -15,6 +15,8 @@ function setupSocketServer(server, sessionMiddleware) {
     io.on("connection", (socket) => {
         socket.emit("receive-id", { id: socket.id });
 
+        socket.request.session.user.id = socket.id;
+
         if (!socket.request.session.user) {
             return;
         }
@@ -41,18 +43,22 @@ function setupSocketServer(server, sessionMiddleware) {
         });
 
         socket.on("client-updates-pupils", (data) => {
+            data.id = socket.id;
             socket.broadcast.emit("update-pupils", data);
         });
 
         socket.on("client-winks", (data) => {
+            data.id = socket.id;
             socket.broadcast.emit("update-winks", data);
         });
 
         socket.on("client-sleeps", (data) => {
+            data.id = socket.id;
             socket.broadcast.emit("update-sleep", data);
         });
 
         socket.on("client-wakes", (data) => {
+            data.id = socket.id;
             socket.broadcast.emit("update-wake", data);
         });
 
