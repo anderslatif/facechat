@@ -6,59 +6,8 @@
     <link rel="icon" type="image/png" href="chat_icon.png" />
     
     <link rel="stylesheet" href="/chat/index.css" />
+    <link rel="stylesheet" href="/chat/main.css" />
     <link rel="stylesheet" href="/chat/faceStyles.css" />
-
-    <style>
-
-      #face-gallery {
-        padding: 10px;
-        margin: 10px;
-      }
-
-      .svg-container {
-        position: relative; /* Sets the container as the reference for absolute positioning */
-          display: inline-block;
-          text-align: center;
-          margin: 10px;
-          width: auto; /* Ensure width encompasses all child elements */
-      }
-
-      .speech-bubble {
-          position: absolute;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%); /* Corrects horizontal position */
-          width: 100%; /* Use up all the horizontal space of the parent */
-          padding: 10px;
-          background-color: white;
-          border: 1px solid black;
-          border-radius: 10px;
-          text-align: center;
-          display: none; /* Keep hidden initially */
-          transition: opacity 0.5s ease-in-out; /* Transition for opacity */
-          z-index: 1;
-      }
-
-    #speech-bubble {
-      transition: visibility 0s, opacity 0.5s linear;
-    }
-
-    
-    .sleep-element {
-      transition: transform 0.5s ease;
-      transform-style: preserve-3d; /* Ensures the 3D effect is preserved */
-    }
-
-    .sleep {
-        transform: rotateY(180deg); /* Rotates the element 180 degrees around the Y-axis */
-    }
-
-    .nickname-inactive-label {
-      display: none;
-      color: grey;
-    }
-
-    </style>
 
     <link rel="icon" type="image/png" href="/assets/chat_icon.png" />
     <title>FaceChat</title>

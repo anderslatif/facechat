@@ -12,6 +12,10 @@ html, body {
     background-color: lightgrey;
 }
 
+body {
+    background-image: url('/chat/wallbackground.jpg');
+}
+
 #message-input {
     position: fixed;
     bottom: 0;
