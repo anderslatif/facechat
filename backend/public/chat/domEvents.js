@@ -10,6 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
             input.focus();
         },  0);
     });
+
+    window.addEventListener('resize', () => {
+        const viewportHeight = window.innerHeight + 'px';
+        document.documentElement.style.setProperty('--vh', viewportHeight);
+    });
+
+    input.addEventListener('focus', function() {
+        setTimeout(() => {
+            inputElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 300);
+    });
+
 });
 
 
