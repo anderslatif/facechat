@@ -2,7 +2,7 @@
 const socket = io();
 let myId;
 
-
+socket.on("logout", () => window.location.href = "/");
 
 socket.on("update-faces", ({ faces }) => {
   const width = window.innerWidth;

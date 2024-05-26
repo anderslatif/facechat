@@ -15,7 +15,9 @@ function setupSocketServer(server, sessionMiddleware) {
     io.on("connection", (socket) => {
         socket.emit("receive-id", { id: socket.id });
 
+        // should only happen when the server restarts
         if (!socket.request.session.user) {
+            socket.emit("logout", {});
             return;
         }
 
